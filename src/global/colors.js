@@ -12,6 +12,10 @@ export const colors = {
     purple: "#EAE2F4",
     lightOrange: "#F5E7E0",
     lightOrange2: "#ECE1C8",
+    lightOrange3: "#F2B409",
     lightGreen: "#E6F1E3",
-    darkOrange: "#E7632A"
+    darkOrange: "#E7632A",
+    blue: "#3892DC",
+    pink: "#DC37B0",
+    green: "#32AE2F"
   };
