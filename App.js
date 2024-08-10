@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
-// import * as SplashScreen from "expo-splash-screen";
+import * as SplashScreen from "expo-splash-screen";
 import {
   StyleSheet,
   View,
@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Home from "./src/Screens/Home"
 import { colors } from "./src/global/colors";
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 
 export default function App() {
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     flex: 1,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.grayNatural,
   },
 });
