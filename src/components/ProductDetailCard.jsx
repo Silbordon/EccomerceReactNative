@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
+import { useNavigation } from '@react-navigation/native';
+import products from '../data/productsDetails.json';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-const ProductDetailCard = ({ title, price, image, description, onAddToCart }) => {
-  title = "comida para ivy";
-  price = 45; 
-  description = "Lorem insu jcnlkdscnwi;c nciwuhcnw jsbnclwiubce bihsbcwlibuc dcjb wldicubwe chjdbcweic jbsdcniweubc djscb wilc lksbcdiwel";
-  onAddToCart = ()=> console.log("add to cart")
+const ProductDetailCard = ({ id }) => {
+  const navigation = useNavigation();
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
@@ -19,27 +19,59 @@ const ProductDetailCard = ({ title, price, image, description, onAddToCart }) =>
     }
   };
 
+  const onAddToCart = () => console.log("add to cart");
+
   return (
     <View style={styles.card}>
-      <Image  
+      <Pressable
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}>
+        <AntDesign name="arrowleft" size={32} color={colors.green900} />
+      </Pressable>
+      <Image
         source={require("../../assets/images/prodCat1.jpg")}
-        style={styles.image} 
-        resizeMode="contain" />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
-      <Text style={styles.description}>{description}</Text>
+        style={styles.image}
+        resizeMode="contain"
+      />
+      <Text style={styles.title}>{products[id].name}</Text>
+      <Text style={styles.price}>${products[id].price.toFixed(2)}</Text>
+      <Text style={styles.description}>{products[id].description}</Text>
 
       <View style={styles.counterContainer}>
-        <Pressable onPress={decreaseQuantity} style={styles.counterButton}>
+        <Pressable
+          onPress={decreaseQuantity}
+          style={({ pressed }) => [
+            styles.counterButton,
+            {
+              backgroundColor: colors.green200,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}>
           <Text style={styles.counterButtonText}>-</Text>
         </Pressable>
         <Text style={styles.counterText}>{quantity}</Text>
-        <Pressable onPress={increaseQuantity} style={styles.counterButton}>
+        <Pressable
+          onPress={increaseQuantity}
+          style={({ pressed }) => [
+            styles.counterButton,
+            {
+              backgroundColor: colors.green200,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}>
           <Text style={styles.counterButtonText}>+</Text>
         </Pressable>
       </View>
 
-      <Pressable onPress={() => onAddToCart(quantity)} style={styles.addButton}>
+      <Pressable
+        onPress={() => onAddToCart(quantity)}
+        style={({ pressed }) => [
+          styles.addButton,
+          {
+            backgroundColor: colors.green700,
+            opacity: pressed ? 0.7 : 1,
+          },
+        ]}>
         <Text style={styles.addButtonText}>Add to Cart</Text>
       </Pressable>
     </View>
@@ -51,22 +83,24 @@ export default ProductDetailCard;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    borderRadius: 20,
     padding: 15,
-    margin: 10,
+    marginBottom: 10,
     alignItems: 'center',
-    shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    position: 'relative',
+  },
+  backButton: {
+    position: 'absolute',
+    top: -3,
+    left: 3,
   },
   image: {
     width: 500,
+    marginTop: 13
   },
   title: {
     fontSize: 20,
+    color: colors.green700,
     fontFamily: "Poppins-Bold",
     marginBottom: 10,
     textAlign: 'center',
@@ -91,7 +125,6 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   counterButton: {
-    backgroundColor: colors.green200,
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 8,
@@ -111,6 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
+    marginBottom: 15
   },
   addButtonText: {
     color: colors.white,

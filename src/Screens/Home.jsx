@@ -6,12 +6,13 @@ import ProductCard from '../components/ProductCard'
 import CategorieCard from '../components/CategorieCard'
 import categorieType from '../data/categoriesType.json';
 import topSells from '../data/topSells.json';
-import ProductDetailCard from '../components/ProductDetailCard'
+import Header from '../components/Header'
 
 
 const Home = () => {
     return (
         <ScrollView>
+            <Header />
             <Banner />
             <HorizontalCarouselHome
                 title="CATEGORIES"
@@ -29,14 +30,10 @@ const Home = () => {
                 data={topSells}
                 renderItem={(item) => (
                     <ProductCard
-                        title={item.name}
-                        price={item.price}
-                        onPress={item.onPress}
-                        image={""}
+                       item={item}
                     />
                 )}
             />
-            <ProductDetailCard />
         </ScrollView>
 
     )
