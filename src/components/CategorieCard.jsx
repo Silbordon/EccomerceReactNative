@@ -1,8 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { images } from '../assets';
+import { colors } from '../global/colors';
 
 const CategorieCard = ({ backgroundColor, text, image }) => {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <Image
@@ -11,12 +14,12 @@ const CategorieCard = ({ backgroundColor, text, image }) => {
         resizeMode="contain"
       />
       <Pressable
-        onPress={() => console.log("Shop Now")}
+        onPress={() => navigation.navigate("ListCategory", {category : image})}
         style={({ pressed }) => [
           styles.btn,
           {
             backgroundColor: backgroundColor,
-            opacity: pressed ? 0.9 : 1,
+            opacity: pressed ? 0.7 : 1,
           },
         ]}
       >
@@ -31,9 +34,10 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 10
   },
   image: {
-    width: 250,
+    width: 220,
     height: 220,
   },
   btn: {

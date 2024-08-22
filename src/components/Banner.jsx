@@ -80,6 +80,7 @@ export default Banner;
 const styles = StyleSheet.create({
   containerBanner: {
     marginHorizontal: 1,
+    marginBottom: 10
   },
   scrollView: {
     flexDirection: 'row',

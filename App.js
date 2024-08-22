@@ -9,8 +9,8 @@ import {
   Platform,
   Text,
 } from "react-native";
-import Home from "./src/Screens/Home"
 import { colors } from "./src/global/colors";
+import Navigator from './src/navigation/Navigator'
 SplashScreen.preventAutoHideAsync();
 
 
@@ -41,7 +41,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <SafeAreaView style={styles.container}>
-       <Home />
+        <Navigator />
       </SafeAreaView>
     </View>
   );

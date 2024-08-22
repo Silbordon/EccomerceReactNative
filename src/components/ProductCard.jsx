@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
+import { useNavigation } from '@react-navigation/native'
 
-const ProductCard = ({ title, price, onPress, image }) => {
+const ProductCard = ({item}) => {
 
   // const sourceImage = 'require(`${image}`)'
 
- onPress=()=>{console.log}
+  const navigation = useNavigation()
 
   return (
     <View style={styles.card}>
@@ -14,11 +15,17 @@ const ProductCard = ({ title, price, onPress, image }) => {
         source={require("../../assets/images/prodCat1.jpg")}
         style={styles.image} 
         resizeMode="contain" />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
+      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.price}>${item.price.toFixed(2)}</Text>
       <Pressable 
-        onPress={onPress} 
-        style={styles.button}>
+        onPress={()=>navigation.navigate("ProductDetail",{id:item.id})}
+        style={({ pressed }) => [
+          styles.button,
+          {
+            backgroundColor: colors.green700,
+            opacity: pressed ? 0.7 : 1,
+          },
+        ]}>
           <Text style={styles.buttonText}>See More</Text>
       </Pressable>
     </View>
@@ -36,6 +43,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginHorizontal: 8,
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 20,
@@ -59,7 +67,7 @@ const styles = StyleSheet.create({
     fontFamily : "Poppins-Bold"
   },
   button: {
-    backgroundColor: colors.blue,
+    backgroundColor: colors.green900,
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 8,

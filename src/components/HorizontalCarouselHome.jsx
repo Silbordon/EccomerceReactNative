@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
+import { colors } from '../global/colors';
 
 const HorizontalCarouselHome = ({title, renderItem, data}) => {
   return (
@@ -20,10 +21,11 @@ const HorizontalCarouselHome = ({title, renderItem, data}) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 40,
+    marginBottom: 10,
   },
   title: {
     marginHorizontal: 25,
-    marginBottom: 10,
+    marginBottom: 15,
     fontFamily: "Poppins-Bold",
     fontSize: 20,
   },
