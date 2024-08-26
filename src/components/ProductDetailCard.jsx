@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
 import { useNavigation } from '@react-navigation/native';
-import products from '../data/productsDetails.json';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useSelector } from 'react-redux'
 
 const ProductDetailCard = ({ id }) => {
+  
   const navigation = useNavigation();
   const [quantity, setQuantity] = useState(1);
+  const products = useSelector((state) => state.shop.products)
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);

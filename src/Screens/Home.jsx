@@ -4,16 +4,22 @@ import Banner from '../components/Banner'
 import HorizontalCarouselHome from '../components/HorizontalCarouselHome'
 import ProductCard from '../components/ProductCard'
 import CategorieCard from '../components/CategorieCard'
-import categorieType from '../data/categoriesType.json';
-import topSells from '../data/topSells.json';
 import Header from '../components/Header'
+import Counter from '../components/Counter'
+import { useSelector } from 'react-redux'
 
 
 const Home = () => {
+
+    const categorieType = useSelector((state) => state.shop.categories )
+    const products = useSelector((state) => state.shop.products)
+    // const topSells = useSelector((state) => state.shop.topSells)
+
     return (
         <ScrollView>
             <Header />
             <Banner />
+            <Counter />
             <HorizontalCarouselHome
                 title="CATEGORIES"
                 data={categorieType}
@@ -27,7 +33,7 @@ const Home = () => {
             />
             <HorizontalCarouselHome
                 title="Trending This Week"
-                data={topSells}
+                data={products}
                 renderItem={(item) => (
                     <ProductCard
                        item={item}

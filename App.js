@@ -7,12 +7,12 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
-  Text,
 } from "react-native";
 import { colors } from "./src/global/colors";
-import Navigator from './src/navigation/Navigator'
+import Navigator from "./src/navigation/Navigator";
+import { store } from "./src/app/store";
+import { Provider } from "react-redux";
 SplashScreen.preventAutoHideAsync();
-
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -40,9 +40,11 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <SafeAreaView style={styles.container}>
-        <Navigator />
-      </SafeAreaView>
+      <Provider store={store}>
+        <SafeAreaView style={styles.container}>
+          <Navigator />
+        </SafeAreaView>
+      </Provider>
     </View>
   );
 }
