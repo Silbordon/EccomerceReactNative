@@ -1,0 +1,1 @@
+export const URL_FIREBASE = 'https://ecommerce-reactnative-co-f8bee-default-rtdb.firebaseio.com/'

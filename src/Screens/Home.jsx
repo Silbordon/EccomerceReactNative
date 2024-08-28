@@ -5,21 +5,17 @@ import HorizontalCarouselHome from '../components/HorizontalCarouselHome'
 import ProductCard from '../components/ProductCard'
 import CategorieCard from '../components/CategorieCard'
 import Header from '../components/Header'
-import Counter from '../components/Counter'
-import { useSelector } from 'react-redux'
-
+import { useGetCategoriesQuery, useGetProductsQuery } from '../services/shop'
 
 const Home = () => {
 
-    const categorieType = useSelector((state) => state.shop.categories )
-    const products = useSelector((state) => state.shop.products)
-    // const topSells = useSelector((state) => state.shop.topSells)
-
+    const {data: categorieType} = useGetCategoriesQuery()
+    const {data:products} = useGetProductsQuery()
+   
     return (
         <ScrollView>
             <Header />
             <Banner />
-            <Counter />
             <HorizontalCarouselHome
                 title="CATEGORIES"
                 data={categorieType}

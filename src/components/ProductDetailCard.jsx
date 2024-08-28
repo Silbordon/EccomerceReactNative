@@ -3,13 +3,16 @@ import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useSelector } from 'react-redux'
+import { useGetProductsQuery } from '../services/shop'
+import { addItemCart } from '../features/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductDetailCard = ({ id }) => {
-  
+
   const navigation = useNavigation();
+  const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1);
-  const products = useSelector((state) => state.shop.products)
+  const {data:products} = useGetProductsQuery()
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -21,7 +24,10 @@ const ProductDetailCard = ({ id }) => {
     }
   };
 
-  const onAddToCart = () => console.log("add to cart");
+  const handleAddItemCart = () => {
+    dispatch(addItemCart({...products[id],quantity: quantity}))
+    navigation.navigate("CartStackNavigator")
+  }
 
   return (
     <View style={styles.card}>
@@ -66,7 +72,7 @@ const ProductDetailCard = ({ id }) => {
       </View>
 
       <Pressable
-        onPress={() => onAddToCart(quantity)}
+        onPress={handleAddItemCart}
         style={({ pressed }) => [
           styles.addButton,
           {

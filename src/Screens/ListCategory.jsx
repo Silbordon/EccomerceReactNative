@@ -1,25 +1,28 @@
 import { FlatList, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-// import products from '../data/productsDetails.json'
 import Search from '../components/Search'
 import ProductCard from '../components/ProductCard'
 import { images } from '../assets';
 import { colors } from '../global/colors'
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useSelector } from 'react-redux'
+import { useGetProductsQuery } from '../services/shop'
 
 const ListCategory = ({ route }) => {
   const [productsFiltered, setProductsFiltered] = useState([])
   const [noMatches, setNoMatches] = useState(false)
   const { category } = route.params
-  const products = useSelector((state) => state.shop.products)
+  const { data: products, isSuccess, isLoading} = useGetProductsQuery(category)
   const navigation = useNavigation();
 
   useEffect(() => {
-    const filteredProducts = products.filter(product => product.category === category)
-    setProductsFiltered(filteredProducts)
-  }, [category])
+    if (isSuccess) {
+      const filteredProducts = products.filter(product => product.category === category)
+      setProductsFiltered(filteredProducts)
+    }
+  }, [category, isSuccess])
+
+  if (isLoading) return <View><Text>Loading...</Text></View>
 
   const onSearch = (input) => {
     if (input) {

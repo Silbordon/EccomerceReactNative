@@ -3,12 +3,12 @@ import React from 'react'
 import ProductDetailCard from '../components/ProductDetailCard'
 import ProductCard from '../components/ProductCard'
 import HorizontalCarouselHome from '../components/HorizontalCarouselHome'
-import { useSelector } from 'react-redux'
+import { useGetProductsQuery } from '../services/shop'
 
 const ProductDetail = ({route}) => {
     const {id} = route.params
-    const products = useSelector((state) => state.shop.products)
-    
+    const {data:products} = useGetProductsQuery()
+  
   return (
     <ScrollView>
     <View>
