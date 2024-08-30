@@ -7,7 +7,7 @@ const OrderItem = ({ item, onPress }) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.containerText}>
-        <Text style={styles.date}>{new Date(item.createdAt).toLocaleString()}</Text>
+        <Text style={styles.date}>{item.createdAt}</Text>
         <Text style={styles.total}>Total: ${item.total.toFixed(2)}</Text>
       </View>
       <AntDesign name="infocirlceo" size={25} color={colors.green900} />

@@ -3,16 +3,17 @@ import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useGetProductsQuery } from '../services/shop'
+import { useGetProductQuery } from '../services/shop'
 import { addItemCart } from '../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import Loading from './Loading';
 
 const ProductDetailCard = ({ id }) => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1);
-  const {data:products} = useGetProductsQuery()
+  const {data:product, isLoading} = useGetProductQuery(id)
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -24,8 +25,10 @@ const ProductDetailCard = ({ id }) => {
     }
   };
 
+  if(isLoading) return <Loading />
+
   const handleAddItemCart = () => {
-    dispatch(addItemCart({...products[id],quantity: quantity}))
+    dispatch(addItemCart({...product, quantity: quantity}))
     navigation.navigate("CartStackNavigator")
   }
 
@@ -41,9 +44,9 @@ const ProductDetailCard = ({ id }) => {
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.title}>{products[id].name}</Text>
-      <Text style={styles.price}>${products[id].price.toFixed(2)}</Text>
-      <Text style={styles.description}>{products[id].description}</Text>
+      <Text style={styles.title}>{product.name}</Text>
+      <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+      <Text style={styles.description}>{product.description}</Text>
 
       <View style={styles.counterContainer}>
         <Pressable

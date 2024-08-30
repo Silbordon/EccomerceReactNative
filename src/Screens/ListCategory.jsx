@@ -7,6 +7,7 @@ import { colors } from '../global/colors'
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useGetProductsQuery } from '../services/shop'
+import Loading from '../components/Loading';
 
 const ListCategory = ({ route }) => {
   const [productsFiltered, setProductsFiltered] = useState([])
@@ -22,7 +23,7 @@ const ListCategory = ({ route }) => {
     }
   }, [category, isSuccess])
 
-  if (isLoading) return <View><Text>Loading...</Text></View>
+  if(isLoading) return <Loading />
 
   const onSearch = (input) => {
     if (input) {

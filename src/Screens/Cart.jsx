@@ -2,11 +2,29 @@ import { StyleSheet, Text, View, FlatList, ScrollView, Pressable } from 'react-n
 import CartItem from '../components/CartItem'
 import { colors } from '../global/colors'
 import { useSelector } from 'react-redux'
+import { usePostOrderMutation } from '../services/shop'
+import { useDispatch } from 'react-redux'
+import { clearCart } from '../features/cart/cartSlice'
+import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
 
     const cart = useSelector(state => state.cart)
-
+    const [triggerPostOrder] = usePostOrderMutation()
+    const dispatch = useDispatch()
+    const navigation = useNavigation();
+    
+    const handleAddOrder = () => {
+      const createdAt = new Date().toLocaleString()
+      const order = {
+        ...cart,
+        createdAt
+      }
+      triggerPostOrder({userId:"1",order})
+      dispatch(clearCart())
+      navigation.navigate("OrderStacknavigator")
+  
+    }
     return (
         <View style={styles.container}>
             <ScrollView >
@@ -23,7 +41,7 @@ const Cart = () => {
                             <Text style={styles.titleConfirm}>Cart totals</Text>
                             <Text style={styles.textConfirm}>Total: <Text style={{fontWeight: 'bold'}}>${cart.total}</Text></Text>
                             <Pressable 
-                                onPress={() => console.log('cart')} 
+                                onPress={handleAddOrder} 
                                 style={({ pressed }) => [
                                     styles.addButton,
                                     {
