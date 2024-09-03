@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
 import { useNavigation } from '@react-navigation/native';
-import products from '../data/productsDetails.json';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useGetProductQuery } from '../services/shop'
+import { addItemCart } from '../features/cart/cartSlice';
+import { useDispatch } from 'react-redux';
+import Loading from './Loading';
 
 const ProductDetailCard = ({ id }) => {
+
   const navigation = useNavigation();
+  const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1);
+  const {data:product, isLoading} = useGetProductQuery(id)
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -19,7 +25,12 @@ const ProductDetailCard = ({ id }) => {
     }
   };
 
-  const onAddToCart = () => console.log("add to cart");
+  if(isLoading) return <Loading />
+
+  const handleAddItemCart = () => {
+    dispatch(addItemCart({...product, quantity: quantity}))
+    navigation.navigate("CartStackNavigator")
+  }
 
   return (
     <View style={styles.card}>
@@ -33,9 +44,9 @@ const ProductDetailCard = ({ id }) => {
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.title}>{products[id].name}</Text>
-      <Text style={styles.price}>${products[id].price.toFixed(2)}</Text>
-      <Text style={styles.description}>{products[id].description}</Text>
+      <Text style={styles.title}>{product.name}</Text>
+      <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+      <Text style={styles.description}>{product.description}</Text>
 
       <View style={styles.counterContainer}>
         <Pressable
@@ -64,7 +75,7 @@ const ProductDetailCard = ({ id }) => {
       </View>
 
       <Pressable
-        onPress={() => onAddToCart(quantity)}
+        onPress={handleAddItemCart}
         style={({ pressed }) => [
           styles.addButton,
           {

@@ -3,7 +3,6 @@ import Home from "../Screens/Home";
 import ListCategory from "../Screens/ListCategory";
 import ProductDetail from "../Screens/ProductDetail";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function HomeStackNavigator() {

@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, Modal, Text, Pressable } from 'react-native';
-import orders from '../data/orders.json';
 import OrderItem from '../components/OrderItem';
 import OrderDetails from '../components/OrderDetails'; 
 import { colors } from '../global/colors';
+import { useGetOrdersByUserQuery } from '../services/shop';
+import Loading from '../components/Loading';
 
 const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const {data:orders, isLoading } = useGetOrdersByUserQuery("1")
+ 
+
+  useEffect(() => {
+  }, [])
+  
 
   const handlePress = (order) => {
     setSelectedOrder(order);
@@ -16,13 +23,20 @@ const Orders = () => {
     setSelectedOrder(null);
   };
 
+  if(isLoading) return <Loading />
+
   return (
     <View style={styles.container}>
+      {!orders ? (
+                    <Text style={styles.emptyCartText}>No orders</Text>
+                ) : (
+                    <>    
       <FlatList
         data={orders}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <OrderItem item={item} onPress={() => handlePress(item)} />}
       />
+       </>)}
       <Modal
         visible={!!selectedOrder}
         animationType="slide"
@@ -46,6 +60,7 @@ const Orders = () => {
           </View>
         </View>
       </Modal>
+      
     </View>
   );
 };
@@ -58,6 +73,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     paddingVertical: 15
   },
+  emptyCartText: {
+    fontSize: 20,
+    color: colors.black,
+    textAlign: 'center',
+    marginTop: 20,
+    fontFamily: "Poppins-Bold",
+},
   modalContainer: {
     flex: 1,
     justifyContent: 'center',

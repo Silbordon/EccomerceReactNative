@@ -1,20 +1,29 @@
-import { FlatList, StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native'
+import { FlatList, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import products from '../data/productsDetails.json'
 import Search from '../components/Search'
 import ProductCard from '../components/ProductCard'
 import { images } from '../assets';
 import { colors } from '../global/colors'
+import { useNavigation } from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { useGetProductsQuery } from '../services/shop'
+import Loading from '../components/Loading';
 
 const ListCategory = ({ route }) => {
   const [productsFiltered, setProductsFiltered] = useState([])
   const [noMatches, setNoMatches] = useState(false)
   const { category } = route.params
+  const { data: products, isSuccess, isLoading} = useGetProductsQuery(category)
+  const navigation = useNavigation();
 
   useEffect(() => {
-    const filteredProducts = products.filter(product => product.category === category)
-    setProductsFiltered(filteredProducts)
-  }, [category])
+    if (isSuccess) {
+      const filteredProducts = products.filter(product => product.category === category)
+      setProductsFiltered(filteredProducts)
+    }
+  }, [category, isSuccess])
+
+  if(isLoading) return <Loading />
 
   const onSearch = (input) => {
     if (input) {
@@ -30,6 +39,11 @@ const ListCategory = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Pressable
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}>
+        <AntDesign name="arrowleft" size={32} color={colors.green900} />
+      </Pressable>
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image
@@ -62,12 +76,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 20,
+    paddingTop: 40
   },
   imageContainer: {
     height: 300,
     width: '100%',
     borderRadius: 18,
+  },
+  backButton: {
+    position: 'absolute',
+    top: -2,
+    left: 3,
   },
   image: {
     flex: 1,

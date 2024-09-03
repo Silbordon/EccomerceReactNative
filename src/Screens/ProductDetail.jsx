@@ -1,21 +1,21 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import React from 'react'
 import ProductDetailCard from '../components/ProductDetailCard'
 import ProductCard from '../components/ProductCard'
-import topSells from '../data/topSells.json';
 import HorizontalCarouselHome from '../components/HorizontalCarouselHome'
+import { useGetProductsQuery } from '../services/shop'
 
 const ProductDetail = ({route}) => {
     const {id} = route.params
-
-    
+    const {data:products} = useGetProductsQuery()
+  
   return (
     <ScrollView>
     <View>
       <ProductDetailCard id={id}/>
       <HorizontalCarouselHome
                 title="Related Products"
-                data={topSells}
+                data={products}
                 renderItem={(item) => (
                     <ProductCard
                        item={item}

@@ -1,33 +1,52 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, Pressable } from 'react-native'
-import cart from '../data/cart.json'
 import CartItem from '../components/CartItem'
 import { colors } from '../global/colors'
+import { useSelector } from 'react-redux'
+import { usePostOrderMutation } from '../services/shop'
+import { useDispatch } from 'react-redux'
+import { clearCart } from '../features/cart/cartSlice'
+import { useNavigation } from '@react-navigation/native';
+import ButtonPrimary from '../components/ButtonPrimary'
 
 const Cart = () => {
-    
+
+    const cart = useSelector(state => state.cart)
+    const [triggerPostOrder] = usePostOrderMutation()
+    const dispatch = useDispatch()
+    const navigation = useNavigation();
+
+    const handleAddOrder = () => {
+        const createdAt = new Date().toLocaleString()
+        const order = {
+            ...cart,
+            createdAt
+        }
+        triggerPostOrder({ userId: "1", order })
+        dispatch(clearCart())
+        navigation.navigate("OrderStacknavigator")
+
+    }
     return (
         <View style={styles.container}>
             <ScrollView >
-                <FlatList
-                    data={cart.items}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => <CartItem item={item} />}
-                />
-                <View style={styles.containerConfirmCheckout}>
-                    <Text style={styles.titleConfirm}>Cart totals</Text>
-                    <Text style={styles.textConfirm}>Total: <Text style={{fontWeight: 'bold'}}>${cart.total}</Text></Text>
-                     <Pressable 
-                        onPress={() => console.log('cart')} 
-                        style={({ pressed }) => [
-                            styles.addButton,
-                            {
-                              backgroundColor: colors.green900,
-                              opacity: pressed ? 0.7 : 1,
-                            },
-                          ]}>
-                <Text style={styles.addButtonText}>Confirm</Text>
-            </Pressable>
-                </View>
+                {cart.items.length === 0 ? (
+                    <Text style={styles.emptyCartText}>No items in the cart</Text>
+                ) : (
+                    <>
+                        <FlatList
+                            data={cart.items}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => <CartItem item={item} />}
+                        />
+                        <View style={styles.containerConfirmCheckout}>
+                            <View style={styles.containerText}>
+                                <Text style={styles.titleConfirm}>Cart totals</Text>
+                                <Text style={styles.textConfirm}>Total: <Text style={{ fontWeight: 'bold' }}>${cart.total}</Text></Text>
+                            </View>
+                            <ButtonPrimary title={"Confirm"} onpress={handleAddOrder} />
+                        </View>
+                    </>
+                )}
             </ScrollView>
         </View>
     )
@@ -39,38 +58,41 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: 'center',
-        flex: 1
+        flex: 1,
+        padding: 15,
+    },
+    emptyCartText: {
+        fontSize: 20,
+        color: colors.black,
+        textAlign: 'center',
+        marginTop: 20,
+        fontFamily: "Poppins-Bold",
     },
     containerConfirmCheckout: {
         marginTop: 40,
         flexDirection: "column",
-        justifyContent: "space-between"
+        alignSelf: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    containerText: {
+        width: 330,
     },
     titleConfirm: {
         color: colors.white,
         fontSize: 20,
-        fontFamily : "Poppins-Bold",
+        fontFamily: "Poppins-Bold",
         backgroundColor: colors.black,
-        padding: 10
+        padding: 10,
+        width: "100%"
     },
     textConfirm: {
         color: colors.black,
         backgroundColor: colors.grayNatural,
         fontSize: 18,
-        fontFamily : "Poppins-Regular",
+        fontFamily: "Poppins-Regular",
         paddingVertical: 20,
-        paddingHorizontal: 10
-    },
-    addButton: {
-        backgroundColor: colors.green900,
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 8,
-    },
-    addButtonText: {
-        color: colors.white,
-        fontSize: 16,
-        fontFamily: "Poppins-Bold",
-        textAlign: 'center',
+        paddingHorizontal: 10,
+        width: "100%"
     },
 })

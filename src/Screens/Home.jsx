@@ -4,15 +4,17 @@ import Banner from '../components/Banner'
 import HorizontalCarouselHome from '../components/HorizontalCarouselHome'
 import ProductCard from '../components/ProductCard'
 import CategorieCard from '../components/CategorieCard'
-import categorieType from '../data/categoriesType.json';
-import topSells from '../data/topSells.json';
 import Header from '../components/Header'
-
+import { useGetCategoriesQuery, useGetProductsQuery } from '../services/shop'
 
 const Home = () => {
+
+    const {data: categorieType} = useGetCategoriesQuery()
+    const {data:products} = useGetProductsQuery()
+   
     return (
         <ScrollView>
-            <Header />
+            <Header title='VETSHOP'/>
             <Banner />
             <HorizontalCarouselHome
                 title="CATEGORIES"
@@ -27,7 +29,7 @@ const Home = () => {
             />
             <HorizontalCarouselHome
                 title="Trending This Week"
-                data={topSells}
+                data={products}
                 renderItem={(item) => (
                     <ProductCard
                        item={item}

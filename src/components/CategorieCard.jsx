@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10
+    marginRight: 10,
   },
   image: {
     width: 220,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18, 
     fontWeight: '700',
-    color: '#fff',
+    color: colors.white,
     textAlign: 'center',
   },
 });
