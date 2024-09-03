@@ -6,6 +6,7 @@ import { usePostOrderMutation } from '../services/shop'
 import { useDispatch } from 'react-redux'
 import { clearCart } from '../features/cart/cartSlice'
 import { useNavigation } from '@react-navigation/native';
+import ButtonPrimary from '../components/ButtonPrimary'
 
 const Cart = () => {
 
@@ -13,17 +14,17 @@ const Cart = () => {
     const [triggerPostOrder] = usePostOrderMutation()
     const dispatch = useDispatch()
     const navigation = useNavigation();
-    
+
     const handleAddOrder = () => {
-      const createdAt = new Date().toLocaleString()
-      const order = {
-        ...cart,
-        createdAt
-      }
-      triggerPostOrder({userId:"1",order})
-      dispatch(clearCart())
-      navigation.navigate("OrderStacknavigator")
-  
+        const createdAt = new Date().toLocaleString()
+        const order = {
+            ...cart,
+            createdAt
+        }
+        triggerPostOrder({ userId: "1", order })
+        dispatch(clearCart())
+        navigation.navigate("OrderStacknavigator")
+
     }
     return (
         <View style={styles.container}>
@@ -38,19 +39,11 @@ const Cart = () => {
                             renderItem={({ item }) => <CartItem item={item} />}
                         />
                         <View style={styles.containerConfirmCheckout}>
-                            <Text style={styles.titleConfirm}>Cart totals</Text>
-                            <Text style={styles.textConfirm}>Total: <Text style={{fontWeight: 'bold'}}>${cart.total}</Text></Text>
-                            <Pressable 
-                                onPress={handleAddOrder} 
-                                style={({ pressed }) => [
-                                    styles.addButton,
-                                    {
-                                        backgroundColor: colors.green900,
-                                        opacity: pressed ? 0.7 : 1,
-                                    },
-                                ]}>
-                                <Text style={styles.addButtonText}>Confirm</Text>
-                            </Pressable>
+                            <View style={styles.containerText}>
+                                <Text style={styles.titleConfirm}>Cart totals</Text>
+                                <Text style={styles.textConfirm}>Total: <Text style={{ fontWeight: 'bold' }}>${cart.total}</Text></Text>
+                            </View>
+                            <ButtonPrimary title={"Confirm"} onpress={handleAddOrder} />
                         </View>
                     </>
                 )}
@@ -66,7 +59,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         flex: 1,
-        padding: 15
+        padding: 15,
     },
     emptyCartText: {
         fontSize: 20,
@@ -78,14 +71,20 @@ const styles = StyleSheet.create({
     containerConfirmCheckout: {
         marginTop: 40,
         flexDirection: "column",
-        justifyContent: "space-between"
+        alignSelf: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    containerText: {
+        width: 330,
     },
     titleConfirm: {
         color: colors.white,
         fontSize: 20,
         fontFamily: "Poppins-Bold",
         backgroundColor: colors.black,
-        padding: 10
+        padding: 10,
+        width: "100%"
     },
     textConfirm: {
         color: colors.black,
@@ -93,18 +92,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: "Poppins-Regular",
         paddingVertical: 20,
-        paddingHorizontal: 10
-    },
-    addButton: {
-        backgroundColor: colors.green900,
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 8,
-    },
-    addButtonText: {
-        color: colors.white,
-        fontSize: 16,
-        fontFamily: "Poppins-Bold",
-        textAlign: 'center',
+        paddingHorizontal: 10,
+        width: "100%"
     },
 })

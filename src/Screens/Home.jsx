@@ -14,7 +14,7 @@ const Home = () => {
    
     return (
         <ScrollView>
-            <Header />
+            <Header title='VETSHOP'/>
             <Banner />
             <HorizontalCarouselHome
                 title="CATEGORIES"

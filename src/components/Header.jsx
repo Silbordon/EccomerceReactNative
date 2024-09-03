@@ -2,14 +2,14 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { colors } from '../global/colors'
 
-const Header = () => {
+const Header = ({title}) => {
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
                 source={require("../../assets/images/logo2.png")}
             />
-            <Text style={styles.text}>VETSHOP</Text>
+            <Text style={styles.text}>{title}</Text>
         </View>
     )
 }

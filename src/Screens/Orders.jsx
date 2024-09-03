@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, Modal, Text, Pressable } from 'react-native';
 import OrderItem from '../components/OrderItem';
 import OrderDetails from '../components/OrderDetails'; 
@@ -10,6 +10,11 @@ const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const {data:orders, isLoading } = useGetOrdersByUserQuery("1")
  
+
+  useEffect(() => {
+  }, [])
+  
+
   const handlePress = (order) => {
     setSelectedOrder(order);
   };

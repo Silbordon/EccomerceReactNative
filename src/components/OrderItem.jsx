@@ -19,7 +19,7 @@ export default OrderItem;
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: colors.green200,
+    borderColor: colors.lightOrange3,
     borderWidth: 2,
     width: '90%',
     marginHorizontal: '5%',
