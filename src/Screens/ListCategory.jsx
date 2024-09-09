@@ -44,7 +44,6 @@ const ListCategory = ({ route }) => {
         onPress={() => navigation.goBack()}>
         <AntDesign name="arrowleft" size={32} color={colors.green900} />
       </Pressable>
-      <ScrollView>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
@@ -62,8 +61,9 @@ const ListCategory = ({ route }) => {
           keyExtractor={item => item.id}
           renderItem={({ item }) => <ProductCard item={item} />}
           contentContainerStyle={styles.flatListContent}
+          horizontal={true} 
+          showsHorizontalScrollIndicator={false} 
         />
-      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -72,6 +72,7 @@ export default ListCategory
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: "100%",
     display: 'flex',
     justifyContent: 'center',

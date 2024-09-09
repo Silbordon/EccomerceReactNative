@@ -55,7 +55,7 @@ const FooterTapNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="OrderStacknavigator"
+        name="OrderStackNavigator"
         component={OrderStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -72,7 +72,7 @@ const FooterTapNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ProfileStacknavigator"
+        name="ProfileStackNavigator"
         component={ProfileStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => {

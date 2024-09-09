@@ -11,7 +11,6 @@ const ImageProfile = ({navigation}) => {
     const [triggerAddImageProfile] = usePatchImageProfileMutation()
     const localId = useSelector(state => state.auth.localId)
 
-
     const pickImage = async () => {
        const {granted} = await ImagePicker.requestCameraPermissionsAsync()
        if(!granted) return 

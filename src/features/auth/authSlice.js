@@ -4,7 +4,6 @@ const initialState = {
     email:"",
     idToken:"",
     localId:"",
-    image:""
   }
 
 export const authSlice = createSlice({
@@ -15,11 +14,15 @@ export const authSlice = createSlice({
             state.email = action.payload.email
             state.idToken = action.payload.idToken
             state.localId = action.payload.localId
-            state.image = action.payload.image
+       },
+       clearUser: (state) => {
+        state.email = "",
+        state.idToken = ""
+        state.localId = ""
        }
     }
 })
 
-export const {setUser} = authSlice.actions
+export const {setUser, clearUser} = authSlice.actions
 
 export default authSlice.reducer

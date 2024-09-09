@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, Modal, Text, Pressable } from 'react-native';
 import OrderItem from '../components/OrderItem';
 import OrderDetails from '../components/OrderDetails'; 
+import {  useGetOrdersByUserQuery } from '../services/shop'
 import { colors } from '../global/colors';
-import { useGetOrdersByUserQuery } from '../services/shop';
 import Loading from '../components/Loading';
+import { useSelector } from 'react-redux'
+
 
 const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const {data:orders, isLoading } = useGetOrdersByUserQuery("1")
- 
 
-  useEffect(() => {
-  }, [])
+  const localId = useSelector(state => state.auth.localId)
+
+  const {data:orders,isLoading} = useGetOrdersByUserQuery(localId)
   
 
   const handlePress = (order) => {
