@@ -54,6 +54,8 @@ export const shopApi = createApi({
     getUser: builder.query({
       query: ({ localId }) => `users/${localId}.json`,
       transformResponse: (response) => {
+        if(!response) return {image:""}
+        if(!response.image)  response.image = ""
         const data = Object.values(response);
         return data;
       },

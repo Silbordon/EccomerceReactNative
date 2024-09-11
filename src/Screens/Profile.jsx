@@ -8,14 +8,14 @@ import { useSelector } from 'react-redux'
 const Profile = ({ navigation }) => {
 
     const localId = useSelector(state => state.auth.localId)
-    const { data: image, isSuccess, isLoading } = useGetUserQuery({ localId })
+    const { data: user, isSuccess, isLoading } = useGetUserQuery({ localId })
 
     if (isLoading) return <Loading />
 
     return (
         <View style={styles.container}>
             <Image
-                source={image ? {uri:image[0]}:require("../../assets/images/profile.jpg")}
+                source={user.image ? {uri:user.image[0]}:require("../../assets/images/profile.jpg")}
                 resizeMode='cover'
                 style={styles.image}
             />
