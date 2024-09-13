@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from 'react'
-import { usePatchImageProfileMutation } from '../services/shop'
+import { usePatchImageProfileMutation } from '../services/users'
 import { useSelector } from 'react-redux'
 import ButtonPrimary from '../components/ButtonPrimary'
 
@@ -10,7 +10,6 @@ const ImageProfile = ({navigation}) => {
     const [image,setImage] = useState("")
     const [triggerAddImageProfile] = usePatchImageProfileMutation()
     const localId = useSelector(state => state.auth.localId)
-
 
     const pickImage = async () => {
        const {granted} = await ImagePicker.requestCameraPermissionsAsync()

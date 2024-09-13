@@ -12,9 +12,12 @@ import { colors } from "./src/global/colors";
 import Navigator from "./src/navigation/Navigator";
 import { store } from "./src/app/store";
 import { Provider } from "react-redux";
+import { init } from './src/db'
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  init()
   const [fontsLoaded, fontError] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-ExtraLighItalic": require("./assets/fonts/Poppins-ExtraLightItalic.ttf"),

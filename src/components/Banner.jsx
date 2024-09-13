@@ -1,7 +1,11 @@
 import { Image, Pressable, StyleSheet, View, ScrollView, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import { colors } from "../global/colors";
 
 const Banner = () => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.containerBanner}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
@@ -14,7 +18,7 @@ const Banner = () => {
           <View style={styles.overlay}>
             <Text style={[styles.text, { color: colors.green900 }]}>The Best for your pet</Text>
             <Pressable
-              onPress={() => console.log("Ver más")}
+              onPress={() => navigation.navigate("ListCategory", {category : "dog"})}
               style={({ pressed }) => [
                 styles.button,
                 {
@@ -36,7 +40,7 @@ const Banner = () => {
           <View style={styles.overlay}>
             <Text style={styles.text}>Indestructive Toys</Text>
             <Pressable
-              onPress={() => console.log("Ver más")}
+               onPress={() => navigation.navigate("ListCategory", {category : "cat"})}
               style={({ pressed }) => [
                 styles.button,
                 {
@@ -58,7 +62,7 @@ const Banner = () => {
           <View style={styles.overlay}>
             <Text style={[styles.text, { color: colors.purple }]}>Pets Supplies!</Text>
             <Pressable
-              onPress={() => console.log("Ver más")}
+              onPress={() => navigation.navigate("ListCategory", {category : "dog"})}
               style={({ pressed }) => [
                 styles.button,
                 {

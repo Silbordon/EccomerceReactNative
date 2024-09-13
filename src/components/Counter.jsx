@@ -1,18 +1,17 @@
-import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
-import React, { useState } from 'react';
+import React from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../global/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement } from '../features/counter/counterSlice';
 
-const Counter = () => {
-   
-    const count = useSelector((state) => state.counter.value)
-    const dispatch = useDispatch()
+const Counter = ({ quantity, setQuantity }) => {
+    const increaseQuantity = () => setQuantity(quantity + 1);
+    const decreaseQuantity = () => {
+        if (quantity > 1) setQuantity(quantity - 1);
+    };
 
     return (
         <View style={styles.counterContainer}>
             <Pressable
-                onPress={()=>dispatch(decrement())}
+                onPress={decreaseQuantity}
                 style={({ pressed }) => [
                     styles.counterButton,
                     {
@@ -22,9 +21,9 @@ const Counter = () => {
                 ]}>
                 <Text style={styles.counterButtonText}>-</Text>
             </Pressable>
-            <Text style={styles.counterText}>{count}</Text>
+            <Text style={styles.counterText}>{quantity}</Text>
             <Pressable
-                onPress={()=>dispatch(increment())}
+                onPress={increaseQuantity}
                 style={({ pressed }) => [
                     styles.counterButton,
                     {
@@ -35,10 +34,10 @@ const Counter = () => {
                 <Text style={styles.counterButtonText}>+</Text>
             </Pressable>
         </View>
-    )
-}
+    );
+};
 
-export default Counter
+export default Counter;
 
 const styles = StyleSheet.create({
     counterContainer: {
@@ -61,4 +60,4 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         fontFamily: "Poppins-Regular",
     },
-})
+});

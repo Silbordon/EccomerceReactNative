@@ -2,7 +2,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Header from '../components/Header'
 import Profile from '../Screens/Profile'
 import ImageProfile from '../Screens/ImageProfile'
-
 const Stack = createNativeStackNavigator()
 
 const ProfileStackNavigator = () => {

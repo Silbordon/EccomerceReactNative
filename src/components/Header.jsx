@@ -1,8 +1,20 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import { colors } from '../global/colors'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { deleteSession } from '../db'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearUser } from '../features/auth/authSlice'
 
-const Header = ({title}) => {
+const Header = ({ title }) => {
+
+    const dispatch = useDispatch()
+    const idToken = useSelector(state => state.auth.idToken)
+
+    const onLogout = () => {
+        deleteSession()
+        dispatch(clearUser())
+    }
+
     return (
         <View style={styles.container}>
             <Image
@@ -10,6 +22,10 @@ const Header = ({title}) => {
                 source={require("../../assets/images/logo2.png")}
             />
             <Text style={styles.text}>{title}</Text>
+            {idToken &&
+                <Pressable onPress={onLogout} style={styles.logout}>
+                    <MaterialCommunityIcons name="logout" size={35} color="black" />
+                </Pressable>}
         </View>
     )
 }
@@ -25,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         display: 'flex',
         flexDirection: 'row',
-        padding: 20
+        paddingVertical: 20,
     },
     text: {
         color: colors.green900,
@@ -33,8 +49,17 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         marginLeft: 10
     },
-    image:{
+    image: {
         width: 60,
         height: 60
-    }
+    },
+    icon:{
+        position:"absolute",
+        left:20
+      },
+      logout:{
+        position:"absolute",
+        right:10,
+        bottom:20
+      }
 })

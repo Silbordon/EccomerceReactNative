@@ -10,7 +10,7 @@ const ProductDetail = ({route}) => {
     const {data:products} = useGetProductsQuery()
   
   return (
-    <ScrollView>
+    <ScrollView nestedScrollEnabled={true}>
     <View>
       <ProductDetailCard id={id}/>
       <HorizontalCarouselHome

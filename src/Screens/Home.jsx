@@ -13,7 +13,7 @@ const Home = () => {
     const {data:products} = useGetProductsQuery()
    
     return (
-        <ScrollView>
+        <ScrollView nestedScrollEnabled={true}>
             <Header title='VETSHOP'/>
             <Banner />
             <HorizontalCarouselHome
