@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { colors } from '../global/colors';
 
 const OrderDetails = ({ order }) => {
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Order Details</Text>
@@ -12,7 +13,7 @@ const OrderDetails = ({ order }) => {
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Image 
-                source={require("../../assets/images/prodCat1.jpg")}
+                source={{uri :item.image}}
                 resizeMode="contain"
                 style={styles.image} />
             <View style={styles.itemDetails}>

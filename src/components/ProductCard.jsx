@@ -5,14 +5,13 @@ import { useNavigation } from '@react-navigation/native'
 
 const ProductCard = ({item}) => {
 
-  // const sourceImage = 'require(`${image}`)'
-
   const navigation = useNavigation()
+  const sourceImage = { uri: item.image }; 
 
   return (
     <View style={styles.card}>
       <Image  
-        source={require("../../assets/images/prodCat1.jpg")}
+        source={sourceImage} 
         style={styles.image} 
         resizeMode="contain" />
       <Text style={styles.title}>{item.name}</Text>

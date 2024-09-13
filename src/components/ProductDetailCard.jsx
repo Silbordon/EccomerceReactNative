@@ -24,6 +24,8 @@ const ProductDetailCard = ({ id }) => {
 
   if (isLoading) return <Loading />;
 
+  const sourceImage = product?.image ? { uri: product.image } : require('../../assets/images/logo3.png'); // Default image path
+
   const handleAddItemCart = () => {
     dispatch(addItemCart({ ...product, quantity }));
     navigation.navigate("CartStackNavigator");
@@ -37,7 +39,7 @@ const ProductDetailCard = ({ id }) => {
         <AntDesign name="arrowleft" size={32} color={colors.green900} />
       </Pressable>
       <Image
-        source={require("../../assets/images/prodCat1.jpg")}
+        source={sourceImage} 
         style={styles.image}
         resizeMode="contain"
       />
@@ -82,7 +84,8 @@ const styles = StyleSheet.create({
     left: 3,
   },
   image: {
-    width: 500,
+    width: '100%',
+    height: 200,  
     marginTop: 13,
   },
   title: {
@@ -127,3 +130,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

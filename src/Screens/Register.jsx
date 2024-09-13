@@ -23,7 +23,7 @@ const Register = ({navigation}) => {
 
     useEffect(()=>{
         if(isError) {
-          setErrorEmail("Mail already in used")
+          setErrorEmail("Email already used")
         }
       },[isError])
 

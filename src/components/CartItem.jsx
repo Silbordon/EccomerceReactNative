@@ -9,6 +9,7 @@ import Counter from './Counter';
 const CartItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const dispatch = useDispatch();
+  const sourceImage = { uri: item.image }; 
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -23,7 +24,7 @@ const CartItem = ({ item }) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require("../../assets/images/prodCat1.jpg")}
+        source={sourceImage}
         resizeMode="contain"
       />
       <View style={styles.containerText}>
