@@ -19,33 +19,12 @@ const Login = ({navigation}) => {
     const [triggerLogin, { data, isSuccess, isError, error }] = useLoginMutation()
     const dispatch = useDispatch()
 
-  //   const onSubmit = async () => {
-  //     try {
-  //         setErrorEmail("")
-  //         setErrorPassword("")
-  
-  //         loginSchema.validateSync({ email, password }, { abortEarly: false })
-  
-  //         const { data } = await triggerLogin({ email, password })
-  //         insertSession(data)
-  //         dispatch(setUser({
-  //             email: data.email,
-  //             idToken: data.idToken,
-  //             localId: data.localId
-  //         }))
-  //     } catch (validationError) {
-  //         if (validationError.inner) {
-  //             validationError.inner.forEach(err => {
-  //                 if (err.path === "email") {
-  //                     setErrorEmail(err.message)
-  //                 }
-  //                 if (err.path === "password") {
-  //                     setErrorPassword(err.message)
-  //                 }
-  //             })
-  //         }
-  //     }
-  // }
+    useEffect(()=>{
+        if(isError) {
+          setErrorEmail("Mail or Password not valid")
+          setErrorPassword("Mail or Password not valid")
+        }
+      },[isError])
 
   const onSubmit = async () => {
     try {

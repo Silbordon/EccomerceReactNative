@@ -18,13 +18,14 @@ const Register = ({navigation}) => {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false) 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false) 
-    const [triggerRegister, { data, isSuccess }] = useRegisterMutation()
+    const [triggerRegister,{data,isSuccess,isError,error}] = useRegisterMutation()
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        setErrorPassword("")
-        setErrorEmail("")
-    }, [])
+    useEffect(()=>{
+        if(isError) {
+          setErrorEmail("Mail already in used")
+        }
+      },[isError])
 
     const onSubmit = async () => {
         try {

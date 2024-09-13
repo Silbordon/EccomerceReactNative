@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   noMatchesText: {
     color: 'red',
     fontSize: 16,
-    marginVertical: 10,
+    marginVertical: 20,
     textAlign: 'center'
   }
 })

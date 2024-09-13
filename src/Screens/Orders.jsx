@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, Modal, Text, Pressable } from 'react-native';
 import OrderItem from '../components/OrderItem';
 import OrderDetails from '../components/OrderDetails'; 
-import {  useGetOrdersByUserQuery } from '../services/shop'
+import {  useGetOrdersByUserQuery } from '../services/orders'
 import { colors } from '../global/colors';
 import Loading from '../components/Loading';
 import { useSelector } from 'react-redux'

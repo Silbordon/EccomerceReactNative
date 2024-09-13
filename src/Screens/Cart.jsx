@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import CartItem from '../components/CartItem';
 import { colors } from '../global/colors';
 import { useSelector } from 'react-redux';
-import { usePostOrderMutation } from '../services/shop';
+import { usePostOrderMutation } from '../services/orders';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../features/cart/cartSlice';
 import { useNavigation } from '@react-navigation/native';
